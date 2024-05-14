@@ -1,11 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vschatapp/configur/Theme.dart';
+import 'package:vschatapp/firebase_options.dart';
 import 'package:vschatapp/pages/page_path.dart';
 import 'package:vschatapp/pages/splace_screen/splace_sareen.dart';
 import 'package:vschatapp/pages/wellcome/wellcome_screen.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+);
   runApp(const MyApp());
 }
 
