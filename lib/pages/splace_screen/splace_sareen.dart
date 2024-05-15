@@ -6,11 +6,9 @@ class SplaceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: Text(
-        "VSChatApp",
-        style: Theme.of(context).textTheme.headlineSmall,
-      )),
+      body: Center(
+        child:
+      ),
     );
   }
 }

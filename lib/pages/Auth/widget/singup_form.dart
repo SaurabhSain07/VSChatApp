@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vschatapp/Controller/authController.dart';
 import 'package:vschatapp/widgets/primary_button.dart';
 
 class SingUpForm extends StatelessWidget {
@@ -7,50 +8,56 @@ class SingUpForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   return Column(
+    TextEditingController nameController=TextEditingController();
+    TextEditingController emailController=TextEditingController();
+    TextEditingController passwordController=TextEditingController();
+    AuthController authController = Get.put(AuthController());
+    return Column(
       children: [
-
-        SizedBox(
+        const SizedBox(
           height: 40,
         ),
-        TextField(
-          decoration: InputDecoration(
-              hintText: "Full Name",
-              prefixIcon: Icon(Icons.person)),
+         TextField(
+          controller: nameController,
+          decoration:const InputDecoration(
+              hintText: "Full Name", prefixIcon: Icon(Icons.person)),
         ),
-
-        SizedBox(
+        const SizedBox(
           height: 40,
         ),
-        TextField(
-          decoration: InputDecoration(
+         TextField(
+          controller: emailController,
+          decoration:const InputDecoration(
               hintText: "Email",
               prefixIcon: Icon(Icons.alternate_email_outlined)),
         ),
-        SizedBox(
+        const SizedBox(
           height: 30,
         ),
         TextField(
-          decoration: InputDecoration(
+          controller: passwordController,
+          decoration:const InputDecoration(
               hintText: "password", prefixIcon: Icon(Icons.password_outlined)),
         ),
-        SizedBox(
+       const SizedBox(
           height: 50,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            PrimaryButton(
-              ontap: (){
-                Get.offAllNamed("/homePage");
-              },
-              btnName: "SINGUP",
-              icon: Icons.lock_open_sharp,
-            ),
-          ],
-        )
+        Obx(() => authController.isLoading.value
+            ? CircularProgressIndicator()
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  PrimaryButton(
+                    ontap: () {
+                      // Get.offAllNamed("/homePage");
+                      authController.createUser(emailController.text, passwordController.text);
+                    },
+                    btnName: "SINGUP",
+                    icon: Icons.lock_open_sharp,
+                  ),
+                ],
+              ))
       ],
     );
-  
   }
 }
