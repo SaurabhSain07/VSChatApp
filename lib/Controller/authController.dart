@@ -14,9 +14,9 @@ class AuthController extends GetxController{
       Get.offAllNamed("/homePage");
     }on FirebaseAuthException catch(e){
       if (e.code=='user not found') {
-        log("user not found for that email");
+        print("user not found for that email");
       }else if(e.code=='worng password'){
-        log("worng password provid for that user");
+        print("worng password provid for that user");
       }
     }catch(e){
       print(e);
@@ -28,15 +28,21 @@ class AuthController extends GetxController{
     isLoading.value=true;
     try {
       auth.createUserWithEmailAndPassword(email: email, password: password);
+      Get.offAllNamed("/homePage");
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user not found') {
-        log("user not found for that email");
+        print("user not found for that email");
       } else if (e.code == 'worng password') {
-        log("worng password provid for that user");
+        print("worng password provid for that user");
       }
     } catch (e) {
       print(e);
     }
     isLoading.value=false;
   }
+
+ Future<void> logoutUser()async{
+  auth.signOut();
+  Get.offAllNamed("/authPage");
+ }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:vschatapp/configur/images.dart';
 import 'package:vschatapp/configur/string.dart';
 import 'package:vschatapp/pages/homePage/widgets/chatList.dart';
@@ -31,7 +32,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         actions: [
           IconButton(onPressed: () {}, icon: Icon(Icons.search)),
-          IconButton(onPressed: () {}, icon: Icon(Icons.more_vert)),
+          IconButton(onPressed: () {
+            Get.toNamed("/profilePage");
+          }, 
+          icon: Icon(Icons.more_vert)),
         ],
         bottom: myTabBar(tabController, context),
       ),
