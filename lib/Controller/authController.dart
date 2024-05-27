@@ -1,10 +1,12 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController{
   final auth=FirebaseAuth.instance;
+  final db=FirebaseFirestore.instance;
   RxBool isLoading=false.obs;
 
   Future<void> login(String email, String password)async{
@@ -44,5 +46,9 @@ class AuthController extends GetxController{
  Future<void> logoutUser()async{
   auth.signOut();
   Get.offAllNamed("/authPage");
+ }
+
+ Future <void>initUser(String email)async{
+  // var newUser =
  }
 }
