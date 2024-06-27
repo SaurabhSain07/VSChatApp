@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 import 'package:vschatapp/pages/Auth/auth_page.dart';
 import 'package:vschatapp/pages/Chats/chatPage.dart';
-import 'package:vschatapp/pages/Profile/Profile.dart';
-import 'package:vschatapp/pages/Profile/Widgets/updateProfile.dart';
+import 'package:vschatapp/pages/UserProfile/Profile.dart';
+import 'package:vschatapp/pages/UserProfile/Widgets/updateProfile.dart';
 import 'package:vschatapp/pages/homePage/home_page.dart';
 
 var pagePath = [
@@ -26,13 +26,13 @@ var pagePath = [
   
   GetPage(
     name: "/profilePage",
-     page: () => ProfilePage(),
+     page: () => UserProfilePage(),
       transition: Transition.rightToLeft,
      ),
   
   GetPage(
     name: "/updateProfile",
-     page: () => UpdateProfile(),
+     page: () => UserUpdateProfile(),
       transition: Transition.rightToLeft,
      )
 ];

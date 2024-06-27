@@ -4,12 +4,12 @@ import 'package:get/get.dart';
 import 'package:vschatapp/Controller/authController.dart';
 import 'package:vschatapp/configur/Colors.dart';
 import 'package:vschatapp/configur/images.dart';
-import 'package:vschatapp/pages/Profile/Widgets/login_user_info.dart';
+import 'package:vschatapp/pages/UserProfile/Widgets/login_user_info.dart';
 
 import '../../Controller/profileController.dart';
 
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+class UserProfilePage extends StatelessWidget {
+  const UserProfilePage({super.key});
   @override
   Widget build(BuildContext context) {
   
