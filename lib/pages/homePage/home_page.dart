@@ -6,6 +6,8 @@ import 'package:vschatapp/configur/string.dart';
 import 'package:vschatapp/pages/homePage/widgets/chatList.dart';
 import 'package:vschatapp/pages/homePage/widgets/myTapBar.dart';
 
+import '../../Controller/profileController.dart';
+
 class HomePage extends StatefulWidget {
   HomePage({super.key});
 
@@ -17,6 +19,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     TabController tabController = TabController(length: 3, vsync: this);
+    ProfileController profileController=Get.put(ProfileController());
     return Scaffold(
       appBar: AppBar(
         leading: Padding(

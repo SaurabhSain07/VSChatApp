@@ -1,15 +1,21 @@
+import 'dart:ffi';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:vschatapp/configur/Colors.dart';
 import 'package:vschatapp/configur/images.dart';
+
+import '../../../Controller/profileController.dart';
 
 class LoginUserInfo extends StatelessWidget {
   const LoginUserInfo({super.key});
 
   @override
   Widget build(BuildContext context) {
+    ProfileController profileController=Get.put(ProfileController());
     return Padding(
             padding: const EdgeInsets.all(15),
             child: Container(
@@ -17,7 +23,12 @@ class LoginUserInfo extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.primaryContainer,
               ),
-              child: Column(
+
+              child: profileController.currentUser.value.email!.isEmpty &&
+                profileController.currentUser.value.name!.isEmpty
+            ? Container()
+              : Column( 
+
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(
@@ -33,17 +44,21 @@ class LoginUserInfo extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  Text(
-                    "Saurabh Sain",
+                  Obx(() => Text(
+                    profileController.currentUser.value.name!.isEmpty
+                    ? "Usre"
+                    : profileController.currentUser.value.name!,
                     style: Theme.of(context).textTheme.bodyLarge,
-                  ),
+                  ),),
                   const SizedBox(
                     height: 10,
                   ),
-                  Text(
-                    "visual.sain100486@gmail.com",
+                  Obx(() => Text(
+                     profileController.currentUser.value.email!.isEmpty
+                    ? "ss@gmail.com"
+                    : profileController.currentUser.value.email!,
                     style: Theme.of(context).textTheme.labelLarge,
-                  ),
+                  ),),
                   const SizedBox(
                     height: 10,
                   ),

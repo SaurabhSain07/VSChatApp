@@ -6,12 +6,15 @@ import 'package:vschatapp/configur/Colors.dart';
 import 'package:vschatapp/configur/images.dart';
 import 'package:vschatapp/pages/Profile/Widgets/login_user_info.dart';
 
+import '../../Controller/profileController.dart';
+
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
   @override
   Widget build(BuildContext context) {
   
   AuthController authController=Get.put(AuthController());
+  ProfileController profileController=Get.put(ProfileController());
 
     return Scaffold(
       appBar: AppBar(

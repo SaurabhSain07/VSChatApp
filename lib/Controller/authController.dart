@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:vschatapp/Model/userModel.dart';
 
 class AuthController extends GetxController{
   final auth=FirebaseAuth.instance;
@@ -26,10 +27,11 @@ class AuthController extends GetxController{
     isLoading.value=false;
   }
 
-  Future<void> createUser(String email, String password) async {
+  Future<void> createUser(String email, String password, String name) async {
     isLoading.value=true;
     try {
       auth.createUserWithEmailAndPassword(email: email, password: password);
+      await initUser(email, name);
       Get.offAllNamed("/homePage");
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user not found') {
@@ -48,7 +50,19 @@ class AuthController extends GetxController{
   Get.offAllNamed("/authPage");
  }
 
- Future <void>initUser(String email)async{
-  // var newUser =
+ Future <void>initUser(String email, String name)async{
+  var newUser =UserModel(
+    email: email,
+    name: name,
+    id: auth.currentUser!.uid,
+  );
+
+  try {
+    await db.collection("users").doc(auth.currentUser!.uid).set(
+      newUser.toJson()
+    );
+  } catch (ex) {
+    print(ex);
+  }
  }
 }

@@ -50,7 +50,7 @@ class SingUpForm extends StatelessWidget {
                   PrimaryButton(
                     ontap: () {
                       // Get.offAllNamed("/homePage");
-                      authController.createUser(emailController.text, passwordController.text);
+                      authController.createUser(emailController.text, passwordController.text, nameController.text);
                     },
                     btnName: "SINGUP",
                     icon: Icons.lock_open_sharp,

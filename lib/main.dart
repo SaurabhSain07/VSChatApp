@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:vschatapp/configur/Theme.dart';
 import 'package:vschatapp/pages/page_path.dart';
 import 'package:vschatapp/pages/splace_screen/splace_sareen.dart';
-
 import 'firebase_options.dart';
 
 
