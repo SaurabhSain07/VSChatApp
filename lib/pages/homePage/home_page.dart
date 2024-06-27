@@ -7,6 +7,7 @@ import 'package:vschatapp/pages/homePage/widgets/chatList.dart';
 import 'package:vschatapp/pages/homePage/widgets/myTapBar.dart';
 
 import '../../Controller/profileController.dart';
+import '../Profile/profilePage.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({super.key});
@@ -36,7 +37,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         actions: [
           IconButton(onPressed: () {}, icon: Icon(Icons.search)),
           IconButton(onPressed: () {
-            Get.toNamed("/profilePage");
+            // Get.toNamed("/profilePage");
+            Get.to(ProfilePage());
           }, 
           icon: Icon(Icons.more_vert)),
         ],
