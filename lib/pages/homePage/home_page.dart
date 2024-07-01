@@ -37,7 +37,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         actions: [
           IconButton(onPressed: () {}, icon: Icon(Icons.search)),
           IconButton(onPressed: () {
-            // Get.toNamed("/profilePage");
             Get.to(ProfilePage());
           }, 
           icon: Icon(Icons.more_vert)),

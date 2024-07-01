@@ -29,23 +29,26 @@ class ProfileController extends GetxController{
   }
 
       Future<void> updateProfile(
-        String? name,
-        String? imageUrl,
-        String? about,
-        String? number) async {
+        String name,
+        String imageUrl,
+        String about,
+        String number) async {
           isLoading.value=true;
         try {
           final imageLink=await uploadeFileToFirebase(imageUrl!);
           final updateUser=UserModel(
+          id: auth.currentUser!.uid,
+          email: auth.currentUser!.email,
           name: name,
           about: about,
-          profileImage: imageLink,
+          profileImage: imageUrl=="" ?currentUser.value.profileImage : imageLink,
           phoneNumber: number
         );
         await db
         .collection("users")
         .doc(auth.currentUser!.uid)
         .set(updateUser.toJson());
+        await getUserDetails();
         } catch (e) {
           print(e);
         }

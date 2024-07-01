@@ -110,7 +110,7 @@ class ProfilePage extends StatelessWidget {
                                               profileController.currentUser
                                                       .value.profileImage ==
                                                   ""
-                                          ? Icon(
+                                          ?const Icon(
                                               Icons.image,
                                             )
                                           : ClipRRect(
@@ -124,7 +124,7 @@ class ProfilePage extends StatelessWidget {
                             )
                           ],
                         ),
-                        SizedBox(height: 20),
+                       const SizedBox(height: 20),
                         Obx(
                           () => TextField(
                             controller: name,

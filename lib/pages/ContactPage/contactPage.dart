@@ -19,7 +19,7 @@ class ContactPage extends StatelessWidget {
             isSearchEnable.value= !isSearchEnable.value;
           },
            icon:isSearchEnable.value
-           ?Icon(Icons.search) 
+           ?Icon(Icons.close) 
            :Icon(Icons.search)
            ))
         ],

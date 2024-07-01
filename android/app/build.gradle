@@ -27,7 +27,7 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.example.vschatapp"
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion 34
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -69,5 +69,5 @@ flutter {
 }
 
 dependencies {
-    
+    implementation 'com.google.firebase:firebase-appcheck-debug:16.0.0-beta01'
 }

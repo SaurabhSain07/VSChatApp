@@ -1,5 +1,4 @@
 import 'dart:ffi';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -24,10 +23,7 @@ class LoginUserInfo extends StatelessWidget {
                 color: Theme.of(context).colorScheme.primaryContainer,
               ),
 
-              child: profileController.currentUser.value.email!.isEmpty &&
-                profileController.currentUser.value.name!.isEmpty
-            ? Container()
-              : Column( 
+              child: Column( 
 
                 children: [
                   Padding(
@@ -45,7 +41,7 @@ class LoginUserInfo extends StatelessWidget {
                     height: 10,
                   ),
                   Obx(() => Text(
-                    profileController.currentUser.value.name!.isEmpty
+                    profileController.currentUser.value.name! ==null
                     ? "Usre"
                     : profileController.currentUser.value.name!,
                     style: Theme.of(context).textTheme.bodyLarge,
@@ -54,7 +50,7 @@ class LoginUserInfo extends StatelessWidget {
                     height: 10,
                   ),
                   Obx(() => Text(
-                     profileController.currentUser.value.email!.isEmpty
+                     profileController.currentUser.value.email! == null
                     ? "ss@gmail.com"
                     : profileController.currentUser.value.email!,
                     style: Theme.of(context).textTheme.labelLarge,
