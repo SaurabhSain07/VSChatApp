@@ -15,7 +15,7 @@ class ChatList extends StatelessWidget {
             Get.toNamed("/chatPage");
           },
           child: ChatTile(
-            imageUrl: AssetsImage.girl,
+            imageUrl: AssetsImage.defaultProfileImage,
             name: "Nandni Sain",
             lastChat: "Abhi me School jaa rhi hu",
             lastTime: "07:30 am",
@@ -23,7 +23,7 @@ class ChatList extends StatelessWidget {
         ),
         
         ChatTile(
-          imageUrl: AssetsImage.boy,
+          imageUrl: AssetsImage.defaultProfileImage,
           name: "Saurabh Sain",
           lastChat: "Nandni Kha jaa rhi ho",
           lastTime: "07:30 am",
