@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:vschatapp/Controller/chatController.dart';
+import 'package:vschatapp/Model/userModel.dart';
 import 'package:vschatapp/configur/images.dart';
 import 'package:vschatapp/pages/Chats/Widgets/ChatBubble.dart';
 
 class ChatPage extends StatelessWidget {
-  const ChatPage({super.key,});
+  final UserModel userModel;
+  const ChatPage({super.key, required this.userModel});
 
   @override
   Widget build(BuildContext context) {
+    ChatController chatController=Get.put(ChatController());
+    TextEditingController messageController=TextEditingController();
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -17,15 +22,14 @@ class ChatPage extends StatelessWidget {
             padding: const EdgeInsets.only(left: 10),
             child: Image.asset(AssetsImage.girl),
           ),
-          title: Text.rich(
-            TextSpan(
-                text: "Nandni Sain\n",
-                style: Theme.of(context).textTheme.bodyLarge,
-                children: [
-                  TextSpan(
-                      text: "Online",
-                      style: Theme.of(context).textTheme.labelSmall)
-                ]),
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(userModel.name ?? "User",
+               style: Theme.of(context).textTheme.bodyLarge,),
+               Text("Online", 
+               style: Theme.of(context).textTheme.labelSmall,),  
+            ],
           ),
           actions: [
             IconButton(
@@ -48,9 +52,10 @@ class ChatPage extends StatelessWidget {
             children: [
               SvgPicture.asset(AssetsImage.micSVG),
              const SizedBox(width: 10,),
-             const Expanded(
+              Expanded(
                 child: TextField(
-                  decoration: InputDecoration(
+                  controller: messageController,
+                  decoration:const InputDecoration(
                     hintText: "Type message...",
                     filled: false),
                 )
@@ -58,7 +63,16 @@ class ChatPage extends StatelessWidget {
               const SizedBox(width: 10,),
               SvgPicture.asset(AssetsImage.gallerySVG),
               const SizedBox(width: 10,),
-              SvgPicture.asset(AssetsImage.sendSVG),  
+              InkWell(
+                onTap: () {
+                  if (messageController.text.isNotEmpty) {
+                    chatController.sendMessage(
+                            userModel.id!, messageController.text);
+                    messageController.clear();
+                  }
+                },
+                child: SvgPicture.asset(AssetsImage.sendSVG)
+              ),  
             ],
           )
          ),

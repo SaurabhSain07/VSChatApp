@@ -1,8 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vschatapp/Controller/chatController.dart';
 import 'package:vschatapp/Controller/contactController.dart';
 import 'package:vschatapp/configur/images.dart';
+import 'package:vschatapp/pages/Chats/chatPage.dart';
 import 'package:vschatapp/pages/ContactPage/Widgets/contatSearch.dart';
 import 'package:vschatapp/pages/ContactPage/Widgets/newContactTile.dart';
 import 'package:vschatapp/pages/homePage/widgets/chatTile.dart';
@@ -14,6 +16,7 @@ class ContactPage extends StatelessWidget {
   Widget build(BuildContext context) {
     RxBool isSearchEnable = false.obs;
     ContactController contactController=Get.put(ContactController());
+    ChatController chatController=Get.put(ChatController());
     return Scaffold(
       appBar: AppBar(
         title: Text("Select contact"),
@@ -56,7 +59,7 @@ class ContactPage extends StatelessWidget {
             children: contactController.userList.map(
               (e) => InkWell(
                 onTap: () {
-                  // Get.toNamed("/chatPage");
+                  Get.to(ChatPage(userModel: e));
                 },
                 child: ChatTile(
                   imageUrl: e.profileImage?? AssetsImage.defaultProfileImage,
