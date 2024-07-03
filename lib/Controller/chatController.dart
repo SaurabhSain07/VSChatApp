@@ -31,7 +31,8 @@ class ChatController extends GetxController{
       message: message,
       senderId: auth.currentUser!.uid,
       receiverId: tergetUserId,
-      senderName: profileController.currentUser.value.name
+      senderName: profileController.currentUser.value.name,
+      timestamp: DateTime.now().toString(),
     );
     try {
       await db
@@ -52,7 +53,7 @@ class ChatController extends GetxController{
         .collection("chats")
         .doc(roomId)
         .collection("messages")
-        .orderBy("Time", descending: true)
+        .orderBy("timestamp", descending: true)
         .snapshots()
         .map((snapshot) => snapshot.docs
             .map((docs) => ChatModel.fromJson(docs.data()))

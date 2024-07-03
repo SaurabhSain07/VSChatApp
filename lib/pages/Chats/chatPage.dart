@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:vschatapp/Controller/chatController.dart';
+import 'package:vschatapp/Controller/profileController.dart';
 import 'package:vschatapp/Model/userModel.dart';
 import 'package:vschatapp/configur/images.dart';
 import 'package:vschatapp/pages/Chats/Widgets/ChatBubble.dart';
@@ -13,6 +15,7 @@ class ChatPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ChatController chatController=Get.put(ChatController());
+    ProfileController profileController=Get.put(ProfileController());
     TextEditingController messageController=TextEditingController();
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -28,7 +31,7 @@ class ChatPage extends StatelessWidget {
               Text(userModel.name ?? "User",
                style: Theme.of(context).textTheme.bodyLarge,),
                Text("Online", 
-               style: Theme.of(context).textTheme.labelSmall,),  
+               style: Theme.of(context).textTheme.labelSmall, selectionColor: Colors.white,),  
             ],
           ),
           actions: [
@@ -78,53 +81,55 @@ class ChatPage extends StatelessWidget {
          ),
         
         body: Padding(
-          padding: EdgeInsets.all(10),
-          child: ListView(
-            children:const [
-              Column(
-                children: [
+          padding: EdgeInsets.only(bottom: 90, top: 10, left: 10, right: 10),
+          child: Column(
+            children: [
+              Expanded(
+                child: Stack(
+                  children: [
+                    StreamBuilder(
+                    stream: chatController.getMessage(userModel.id!),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      if (snapshot.hasError) {
+                        return Center(
+                          child: Text("Error: ${snapshot.error}"),
+                        );
+                      }
+                      if (snapshot.data == null) {
+                        return const Center(
+                          child: Text("No Messages"),
+                        );
+                      } else {
+                        return ListView.builder(
+                          reverse: true,
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            DateTime timestamp = DateTime.parse(
+                                snapshot.data![index].timestamp!);
+                            String formattedTime =
+                                DateFormat('hh:mm a').format(timestamp);
+                            return ChatBubble(
+                              message: snapshot.data![index].message!,
+                              imageUrl: snapshot.data![index].imageUrl ?? "",
+                              isComming: snapshot.data![index].receiverId ==
+                                  profileController.currentUser.value.id,
+                              status: "read",
+                              time: formattedTime,
+                            );
+                          },
+                        );
+                      }
+                    },
+                  ),
                   
-                  ChatBubble(
-                    message: 'Hii',
-                    imageUrl: "",
-                    status: "read",
-                    isComming: true,
-                    time: '10:10 Am',
-                  ),
-              
-                  ChatBubble(
-                    message: 'Hello',
-                    imageUrl: "",
-                    status: "read",
-                    isComming: false,
-                    time: '10:10 Am',
-                  ),
-              
-                  ChatBubble(
-                    message: 'Hello',
-                    imageUrl: "https://t3.ftcdn.net/jpg/05/59/87/12/360_F_559871209_pbXlOVArUal3mk6Ce60JuP13kmuIRCth.jpg",
-                    status: "read",
-                    isComming: false,
-                    time: '10:10 Am',
-                  ),
-      
-                  ChatBubble(
-                    message: 'Ram Ram Ji',
-                    imageUrl: "",
-                    status: "read",
-                    isComming: true,
-                    time: '10:10 Am',
-                  ),
-      
-                  ChatBubble(
-                    message: 'Hello',
-                    imageUrl: "https://t3.ftcdn.net/jpg/05/59/87/12/360_F_559871209_pbXlOVArUal3mk6Ce60JuP13kmuIRCth.jpg",
-                    status: "read",
-                    isComming: true,
-                    time: '10:10 Am',
-                  ),
-                ],
-              ),
+                  ],
+                ),
+              )
             ],
           ),
         ),
