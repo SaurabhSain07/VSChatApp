@@ -10,7 +10,14 @@ import 'package:vschatapp/configur/images.dart';
 import '../../../Controller/profileController.dart';
 
 class LoginUserInfo extends StatelessWidget {
-  const LoginUserInfo({super.key});
+  final String profileImage;
+  final String userName;
+  final String userEmail;
+  const LoginUserInfo({
+    super.key,
+    required this.profileImage,
+    required this.userName,
+    required this.userEmail});
 
   @override
   Widget build(BuildContext context) {
@@ -24,37 +31,29 @@ class LoginUserInfo extends StatelessWidget {
               ),
 
               child: Column( 
-
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(
                       top: 20,
                     ),
-                    child: Image.asset(
-                      AssetsImage.boy,
-                      width: 100,
-                      height: 100,
-                      fit: BoxFit.fill,
+                    child: Image.network(
+                      profileImage,                   
                     ),
                   ),
                   const SizedBox(
                     height: 10,
                   ),
-                  Obx(() => Text(
-                    profileController.currentUser.value.name! ==null
-                    ? "Usre"
-                    : profileController.currentUser.value.name!,
+                  Text(
+                    userName,
                     style: Theme.of(context).textTheme.bodyLarge,
-                  ),),
+                  ),
                   const SizedBox(
                     height: 10,
                   ),
-                  Obx(() => Text(
-                     profileController.currentUser.value.email! == null
-                    ? "ss@gmail.com"
-                    : profileController.currentUser.value.email!,
+                  Text(
+                    userEmail,
                     style: Theme.of(context).textTheme.labelLarge,
-                  ),),
+                  ),
                   const SizedBox(
                     height: 10,
                   ),

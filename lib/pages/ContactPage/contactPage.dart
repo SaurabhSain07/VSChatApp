@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vschatapp/Controller/chatController.dart';
 import 'package:vschatapp/Controller/contactController.dart';
+import 'package:vschatapp/Controller/profileController.dart';
 import 'package:vschatapp/configur/images.dart';
 import 'package:vschatapp/pages/Chats/chatPage.dart';
 import 'package:vschatapp/pages/ContactPage/Widgets/contatSearch.dart';
@@ -16,6 +17,7 @@ class ContactPage extends StatelessWidget {
   Widget build(BuildContext context) {
     RxBool isSearchEnable = false.obs;
     ContactController contactController=Get.put(ContactController());
+    ProfileController profileController=Get.put(ProfileController());
     ChatController chatController=Get.put(ChatController());
     return Scaffold(
       appBar: AppBar(
@@ -65,7 +67,12 @@ class ContactPage extends StatelessWidget {
                   imageUrl: e.profileImage?? AssetsImage.defaultProfileImage,
                   name: e.name ?? "User",
                   lastChat: e.about?? "Hay there", 
-                  lastTime: "10:00 am"),
+                  lastTime: e.email! ==
+                                        profileController
+                                            .currentUser.value.email
+                                    ? "You"
+                                    : ""
+                  ),
               )).toList()
             ,
           ))
