@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vschatapp/Controller/contactController.dart';
 import 'package:vschatapp/configur/images.dart';
 import 'package:vschatapp/pages/homePage/widgets/chatTile.dart';
 
@@ -8,9 +9,9 @@ class ChatList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        InkWell(
+    ContactController contactController =Get.put(ContactController());
+    return Obx(() => ListView(
+      children: contactController.chatRoomList.map((e) => InkWell(
           onTap: (){
             Get.toNamed("/chatPage");
           },
@@ -20,16 +21,9 @@ class ChatList extends StatelessWidget {
             lastChat: "Abhi me School jaa rhi hu",
             lastTime: "07:30 am",
           ),
-        ),
-        
-        ChatTile(
-          imageUrl: AssetsImage.defaultProfileImage,
-          name: "Saurabh Sain",
-          lastChat: "Nandni Kha jaa rhi ho",
-          lastTime: "07:30 am",
-        ),
-       
-      ],
+        ),).toList()
+     )
     );
+    
   }
 }

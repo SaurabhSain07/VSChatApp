@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:vschatapp/configur/images.dart';
 
@@ -27,15 +28,16 @@ class ChatTile extends StatelessWidget {
             width: 70,
             height: 70,
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(100),
-              child: Image.network(
-                imageUrl,
-                width: 70,
-                fit: BoxFit.fill,
-              ),
-            ),
+                borderRadius: BorderRadius.circular(100),
+                child: CachedNetworkImage(
+                  imageUrl: imageUrl,
+                  fit: BoxFit.fill,
+                  width: 70,
+                  placeholder: (context, url) => CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                )),
           ),
-         const SizedBox(
+          const SizedBox(
             width: 10,
           ),
           Column(
@@ -45,7 +47,7 @@ class ChatTile extends StatelessWidget {
                 name,
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
-             const SizedBox(
+              const SizedBox(
                 height: 7,
               ),
               Text(
@@ -54,7 +56,7 @@ class ChatTile extends StatelessWidget {
               ),
             ],
           ),
-         const Spacer(),
+          const Spacer(),
           Text(
             lastTime,
             style: Theme.of(context).textTheme.labelMedium,

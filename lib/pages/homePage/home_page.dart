@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:vschatapp/Controller/contactController.dart';
 import 'package:vschatapp/configur/images.dart';
 import 'package:vschatapp/configur/string.dart';
 import 'package:vschatapp/pages/homePage/widgets/chatList.dart';
@@ -21,6 +22,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     TabController tabController = TabController(length: 3, vsync: this);
     ProfileController profileController=Get.put(ProfileController());
+    ContactController contactController =Get.put(ContactController());
     return Scaffold(
       appBar: AppBar(
         leading: Padding(
@@ -35,7 +37,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         ),
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.search)),
+          IconButton(onPressed: () {
+           contactController.getChatRoomList();
+          }, icon: Icon(Icons.search)),
           IconButton(onPressed: () {
             Get.to(ProfilePage());
           }, 
