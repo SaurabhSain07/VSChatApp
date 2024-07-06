@@ -36,8 +36,16 @@ class LoginUserInfo extends StatelessWidget {
                     padding: const EdgeInsets.only(
                       top: 20,
                     ),
-                    child: Image.network(
-                      profileImage,                   
+                    child: Container(
+                      width: 150,
+                      height: 150,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: Image.network(
+                          profileImage,  
+                          fit: BoxFit.cover,                 
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(
