@@ -82,7 +82,7 @@ class ProfilePage extends StatelessWidget {
                                               BorderRadius.circular(100),
                                         ),
                                         child: imagePath.value == ""
-                                            ? Icon(
+                                            ?const Icon(
                                                 Icons.add,
                                               )
                                             : ClipRRect(

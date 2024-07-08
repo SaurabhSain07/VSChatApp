@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vschatapp/Controller/contactController.dart';
+import 'package:vschatapp/Controller/profileController.dart';
 import 'package:vschatapp/configur/images.dart';
+import 'package:vschatapp/pages/Chats/chatPage.dart';
 import 'package:vschatapp/pages/homePage/widgets/chatTile.dart';
 
 class ChatList extends StatelessWidget {
@@ -10,20 +12,35 @@ class ChatList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ContactController contactController =Get.put(ContactController());
-    return Obx(() => ListView(
+    ProfileController profileController =Get.put(ProfileController());
+    return RefreshIndicator(child: Obx(() => ListView(
       children: contactController.chatRoomList.map((e) => InkWell(
           onTap: (){
-            Get.toNamed("/chatPage");
+           Get.to(
+            ChatPage(
+             userModel: (e.receiver!.id ==
+                     profileController.currentUser.value.id
+                 ? e.sender
+                 : e.receiver)!,));
           },
           child: ChatTile(
-            imageUrl: AssetsImage.defaultProfileImage,
-            name: "Nandni Sain",
-            lastChat: "Abhi me School jaa rhi hu",
-            lastTime: "07:30 am",
+            imageUrl: (e.receiver!.id ==
+                                  profileController.currentUser.value.id
+                              ? e.sender!.profileImage
+                              : e.receiver!.profileImage) ??
+                          AssetsImage.defaultProfileImage,
+            name:(e.receiver!.id ==
+                                  profileController.currentUser.value.id
+                              ? e.sender!.name
+                              : e.receiver!.name)!,
+            lastChat:e.lastMessage?? "Last message",
+            lastTime:e.lastMessageTimestamp?? "Last Time",
           ),
         ),).toList()
      )
-    );
+    ), onRefresh: (){
+      return contactController.getChatRoomList();
+    });
     
   }
 }
