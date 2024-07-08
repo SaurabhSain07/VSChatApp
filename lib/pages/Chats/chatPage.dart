@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -23,16 +24,27 @@ class ChatPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           leading: Padding(
-            padding: const EdgeInsets.only(left: 10),
+            padding: const EdgeInsets.all(5),
             child: InkWell(
               onTap: () {
               Get.to(UserProfilePage(
                 userModel: userModel,
               ));
             },
-            child: Image.asset(AssetsImage.girl)),
+            child: Container(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(100),
+                  child: CachedNetworkImage(
+                    imageUrl: userModel.profileImage ?? AssetsImage.defaultProfileImage,
+                    fit: BoxFit.fill,
+                    placeholder: (context, url) => CircularProgressIndicator(),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                  ),
+                ))),
           ),
           title: InkWell(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
             onTap: () {
               Get.to(UserProfilePage(
                 userModel: userModel,
