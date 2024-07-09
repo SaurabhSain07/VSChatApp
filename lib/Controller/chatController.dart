@@ -13,6 +13,7 @@ class ChatController extends GetxController{
   final db= FirebaseFirestore.instance;
   RxBool isLoading=false.obs;
   var uuid = Uuid();
+  RxString selectImagePath="".obs;
   ProfileController profileController=Get.put(ProfileController());
 
   String getRoomId(String tergetUserId){

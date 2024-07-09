@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -8,6 +10,7 @@ import 'package:vschatapp/Controller/profileController.dart';
 import 'package:vschatapp/Model/userModel.dart';
 import 'package:vschatapp/configur/images.dart';
 import 'package:vschatapp/pages/Chats/Widgets/ChatBubble.dart';
+import 'package:vschatapp/pages/Chats/Widgets/messageType.dart';
 import 'package:vschatapp/pages/UserProfile/Profile.dart';
 
 class ChatPage extends StatelessWidget {
@@ -18,7 +21,6 @@ class ChatPage extends StatelessWidget {
   Widget build(BuildContext context) {
     ChatController chatController=Get.put(ChatController());
     ProfileController profileController=Get.put(ProfileController());
-    TextEditingController messageController=TextEditingController();
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -74,45 +76,9 @@ class ChatPage extends StatelessWidget {
                 onPressed: () {}, icon: const Icon(Icons.videocam_outlined))
           ],
         ),
-        
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: Container(
-          margin:const EdgeInsets.all(10),
-          padding:const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primaryContainer,
-            borderRadius: BorderRadius.circular(100)),
-          child: Row(
-            children: [
-              SvgPicture.asset(AssetsImage.micSVG),
-             const SizedBox(width: 10,),
-              Expanded(
-                child: TextField(
-                  controller: messageController,
-                  decoration:const InputDecoration(
-                    hintText: "Type message...",
-                    filled: false),
-                )
-                ),
-              const SizedBox(width: 10,),
-              SvgPicture.asset(AssetsImage.gallerySVG),
-              const SizedBox(width: 10,),
-              InkWell(
-                onTap: () {
-                  if (messageController.text.isNotEmpty) {
-                    chatController.sendMessage(
-                            userModel.id!, messageController.text, userModel);
-                    messageController.clear();
-                  }
-                },
-                child: SvgPicture.asset(AssetsImage.sendSVG)
-              ),  
-            ],
-          )
-         ),
-        
+    
         body: Padding(
-          padding: EdgeInsets.only(bottom: 90, top: 10, left: 10, right: 10),
+          padding: EdgeInsets.only(bottom: 10, top: 10, left: 10, right: 10),
           child: Column(
             children: [
               Expanded(
@@ -156,11 +122,28 @@ class ChatPage extends StatelessWidget {
                         );
                       }
                     },
-                  ),
-                  
+                   ),
+                  Obx(() => (chatController.selectImagePath.value!="")? Positioned(
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: Container(
+                      margin:const EdgeInsets.only(bottom: 10),
+                      height: 300,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(image: FileImage(
+                          File(chatController.selectImagePath.value)
+                         ),
+                         fit: BoxFit.cover
+                        ),
+                        color: Theme.of(context).colorScheme.primaryContainer,
+                        borderRadius: BorderRadius.circular(15)),
+                    ),
+                   ):Container())
                   ],
                 ),
-              )
+              ),
+              MessageType(userModel: userModel,)
             ],
           ),
         ),
