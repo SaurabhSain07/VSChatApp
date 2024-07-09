@@ -5,6 +5,7 @@ import 'package:vschatapp/Controller/chatController.dart';
 import 'package:vschatapp/Controller/imagePickerController.dart';
 import 'package:vschatapp/Model/userModel.dart';
 import 'package:vschatapp/configur/images.dart';
+import 'package:vschatapp/widgets/imagePickerBottemSheet.dart';
 
 class MessageType extends StatelessWidget {
   final UserModel userModel;
@@ -42,9 +43,8 @@ class MessageType extends StatelessWidget {
               const SizedBox(width: 10,),
               Obx(() => chatController.selectImagePath.value==""
               ?InkWell(
-                onTap: () async {
-                  chatController.selectImagePath.value =
-                      await imagePickerController.pickImage();
+                onTap: () {
+                  imagePickerBottemSheet(context, chatController, imagePickerController);
                 },
                 child: SvgPicture.asset(AssetsImage.gallerySVG))
                 :InkWell(
@@ -77,4 +77,6 @@ class MessageType extends StatelessWidget {
           )
          );
   }
+
+  
 }

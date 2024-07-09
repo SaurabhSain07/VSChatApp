@@ -47,9 +47,9 @@ class ChatBubble extends StatelessWidget {
                             imageUrl: imageUrl,
                             fit: BoxFit.fill,
                             placeholder: (context, url) =>
-                                CircularProgressIndicator(),
+                               const CircularProgressIndicator(),
                             errorWidget: (context, url, error) =>
-                                Icon(Icons.error),
+                               const Icon(Icons.error),
                           )
                   ), 
                   message =="" ?Container():SizedBox(height: 5,), 
