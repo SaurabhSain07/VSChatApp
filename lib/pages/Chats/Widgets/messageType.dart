@@ -65,7 +65,7 @@ class MessageType extends StatelessWidget {
                   }
                 },
                 child: chatController.isLoading.value 
-                ?CircularProgressIndicator()
+                ?const CircularProgressIndicator()
                 :SvgPicture.asset(AssetsImage.sendSVG)
               )  
               : InkWell(
