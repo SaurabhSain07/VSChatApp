@@ -40,28 +40,38 @@ class MessageType extends StatelessWidget {
                 )
                 ),
               const SizedBox(width: 10,),
-              InkWell(
+              Obx(() => chatController.selectImagePath.value==""
+              ?InkWell(
                 onTap: () async {
                   chatController.selectImagePath.value =
                       await imagePickerController.pickImage();
                 },
-                child: SvgPicture.asset(AssetsImage.gallerySVG)),
+                child: SvgPicture.asset(AssetsImage.gallerySVG))
+                :InkWell(
+                  onTap: (){
+                    chatController.selectImagePath.value="";
+                  },
+                  child:const SizedBox(),
+                ),),
               const SizedBox(width: 10,),
-              Obx(() => message.value==""
+              Obx(() => message.value !="" || chatController.selectImagePath.value!=""
               ? InkWell(
-                onTap: (){},
-                child: SvgPicture.asset(AssetsImage.micSVG))
-              : InkWell(
                 onTap: () {
-                  if (messageController.text.isNotEmpty) {
+                  if (messageController.text.isNotEmpty || chatController.selectImagePath.value.isNotEmpty) {
                     chatController.sendMessage(
                             userModel.id!, messageController.text, userModel);
                     messageController.clear();
                     message.value="";
                   }
                 },
-                child: SvgPicture.asset(AssetsImage.sendSVG)
-              ),  
+                child: chatController.isLoading.value 
+                ?CircularProgressIndicator()
+                :SvgPicture.asset(AssetsImage.sendSVG)
+              )  
+              : InkWell(
+                onTap: (){},
+                child: SvgPicture.asset(AssetsImage.micSVG))
+              
              )
             ],
           )

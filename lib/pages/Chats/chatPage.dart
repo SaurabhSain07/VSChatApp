@@ -127,17 +127,28 @@ class ChatPage extends StatelessWidget {
                     bottom: 0,
                     left: 0,
                     right: 0,
-                    child: Container(
-                      margin:const EdgeInsets.only(bottom: 10),
-                      height: 300,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(image: FileImage(
-                          File(chatController.selectImagePath.value)
-                         ),
-                         fit: BoxFit.cover
+                    child: Stack(
+                      children: [
+                        Container(
+                          margin:const EdgeInsets.only(bottom: 10),
+                          height: 500,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(image: FileImage(
+                              File(chatController.selectImagePath.value)
+                             ),
+                             fit: BoxFit.fill
+                            ),
+                            color: Theme.of(context).colorScheme.primaryContainer,
+                            borderRadius: BorderRadius.circular(15)),
                         ),
-                        color: Theme.of(context).colorScheme.primaryContainer,
-                        borderRadius: BorderRadius.circular(15)),
+                        Positioned(
+                          right: 0,
+                                    child: IconButton(
+                                        onPressed: () {
+                                          chatController.selectImagePath.value="";
+                                        },
+                                        icon: Icon(Icons.close)))
+                      ],
                     ),
                    ):Container())
                   ],
