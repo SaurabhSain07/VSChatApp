@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:vschatapp/Controller/contactController.dart';
 import 'package:vschatapp/configur/images.dart';
 import 'package:vschatapp/configur/string.dart';
+import 'package:vschatapp/pages/Groups/GroupPage.dart';
 import 'package:vschatapp/pages/homePage/widgets/chatList.dart';
 import 'package:vschatapp/pages/homePage/widgets/myTapBar.dart';
 
@@ -60,7 +61,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           controller: tabController,
           children: [
             ChatList(),
-            Text("Groups Page"),
+            GroupPage(),
             Text("Calls Page"),
           ]
           ),

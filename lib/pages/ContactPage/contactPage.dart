@@ -8,6 +8,7 @@ import 'package:vschatapp/configur/images.dart';
 import 'package:vschatapp/pages/Chats/chatPage.dart';
 import 'package:vschatapp/pages/ContactPage/Widgets/contatSearch.dart';
 import 'package:vschatapp/pages/ContactPage/Widgets/newContactTile.dart';
+import 'package:vschatapp/pages/Groups/NewGroup/newGroup.dart';
 import 'package:vschatapp/pages/homePage/widgets/chatTile.dart';
 
 class ContactPage extends StatelessWidget {
@@ -48,7 +49,9 @@ class ContactPage extends StatelessWidget {
           NewContactTile(
               icon: Icons.person_add,
               btnName: 'New Group',
-              ontap: () {},
+              ontap: () {
+                Get.to(NewGroup());
+              },
             ),
          const SizedBox(height: 10),
           const Row(

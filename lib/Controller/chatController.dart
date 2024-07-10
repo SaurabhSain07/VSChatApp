@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
+import 'package:vschatapp/Controller/contactController.dart';
 import 'package:vschatapp/Controller/profileController.dart';
 import 'package:vschatapp/Model/ChatRoomModel.dart';
 import 'package:vschatapp/Model/chatModel.dart';
@@ -15,6 +16,7 @@ class ChatController extends GetxController{
   var uuid = Uuid();
   RxString selectImagePath="".obs;
   ProfileController profileController=Get.put(ProfileController());
+  ContactController contactController=Get.put(ContactController());
 
   String getRoomId(String tergetUserId){
     String currentUserId=auth.currentUser!.uid;
@@ -94,6 +96,7 @@ class ChatController extends GetxController{
       await db.collection("chats").doc(roomId).set(
             roomDetails.toJson(),
           );
+      await contactController.saveContact(targetUser);  
     } catch (e) {
       print(e);
     }

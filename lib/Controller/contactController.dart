@@ -52,4 +52,27 @@ class ContactController extends GetxController {
         .toList();
         print(chatRoomList);
   }
+  
+  Future<void> saveContact(UserModel user)async{
+    try {
+      await db
+        .collection("users")
+        .doc(auth.currentUser!.uid)
+        .collection("contacts")
+        .doc(user.id)
+        .set(user.toJson());
+    } catch (ex) {
+      print("Error while saving contant"+ex.toString());
+    }
+  }
+  
+   Stream<List<UserModel>> getContact(){
+     return db
+        .collection("users")
+        .doc(auth.currentUser!.uid)
+        .collection("contacts")
+        .snapshots()
+        .map((snapshot) =>
+            snapshot.docs.map((docs) => UserModel.fromJson(docs.data())).toList());
+  }
 }
