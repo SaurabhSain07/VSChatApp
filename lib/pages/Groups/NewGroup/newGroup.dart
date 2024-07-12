@@ -17,17 +17,22 @@ class NewGroup extends StatelessWidget {
     GroupController groupController=Get.put(GroupController());
     return Scaffold(
       appBar: AppBar(title:const Text("New Group"),),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: Obx(() => FloatingActionButton(
         onPressed: () {
-          if (groupController.groupMembers.isNotEmpty) {
-            
+          if (groupController.groupMembers.isEmpty) {   
             Get.snackbar("Error", "Please Select atlast one member");
           } else {
             Get.to(GroupTitle());
           }
         },
-        child: const Icon(Icons.arrow_forward),
-      ),
+        backgroundColor: groupController.groupMembers.isEmpty
+         ? Colors.grey
+         :Theme.of(context).colorScheme.primary,
+        child: Icon(
+          Icons.arrow_forward,
+          color: Theme.of(context).colorScheme.onBackground,
+        ),
+      ),),
       body: Column(
         children: [
           SelectdMembersList(),

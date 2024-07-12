@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:vschatapp/Model/ChatRoomModel.dart';
 import 'package:vschatapp/Model/userModel.dart';
@@ -62,7 +63,9 @@ class ContactController extends GetxController {
         .doc(user.id)
         .set(user.toJson());
     } catch (ex) {
-      print("Error while saving contant"+ex.toString());
+      if (kDebugMode) {
+        print("Error while saving contant"+ex.toString());
+      }
     }
   }
   
