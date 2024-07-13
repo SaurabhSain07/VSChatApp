@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -17,22 +18,30 @@ class GroupTitle extends StatelessWidget {
     GroupController groupController=Get.put(GroupController());
     ImagePickerController imagePickerController=Get.put(ImagePickerController());
     RxString imagePath="".obs;
-    TextEditingController groupName=TextEditingController();
+    RxString groupName="".obs;
     
     return Scaffold(
       appBar: AppBar(title:const Text("New Group")),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton:
+      Obx(() => FloatingActionButton(
         onPressed: () {
-          groupController.createGroup(groupName.toString(), imagePath.value);
+          if (groupName.isEmpty) {   
+            Get.snackbar("Error", "Please Enter Group name");
+          } else {
+            groupController.createGroup(groupName.value, imagePath.value);
+          }
         },
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: groupName.isEmpty
+         ? Colors.grey
+         :Theme.of(context).colorScheme.primary,
         child: groupController.isLoading.value
-            ? CircularProgressIndicator()
-            : Icon(
+            ? const CircularProgressIndicator()
+            : const Icon(
                 Icons.done,
                 color: Colors.white,
               ),
-      ),
+      ),),
+      
       body: Column(
         children: [
           const SizedBox(height: 10,),
@@ -72,7 +81,9 @@ class GroupTitle extends StatelessWidget {
                      
                      const SizedBox(height: 20,),
                      TextFormField(
-                      controller: groupName,
+                      onChanged: (value){
+                        groupName.value=value;
+                      },
                       decoration:const InputDecoration(
                         hintText: "Group Name",
                         prefixIcon: Icon(Icons.group)

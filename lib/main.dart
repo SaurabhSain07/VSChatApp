@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:vschatapp/configur/Theme.dart';
 import 'package:vschatapp/pages/Profile/profilePage.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      builder: FToastBuilder(),
       title: 'VsChatapp',
       theme: lightTheme,
       getPages: pagePath,
