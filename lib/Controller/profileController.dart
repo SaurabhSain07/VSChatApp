@@ -35,7 +35,7 @@ class ProfileController extends GetxController{
         String number) async {
           isLoading.value=true;
         try {
-          final imageLink=await uploadeFileToFirebase(imageUrl!);
+          final imageLink=await uploadFileToFirebase(imageUrl);
           final updateUser=UserModel(
           id: auth.currentUser!.uid,
           email: auth.currentUser!.email,
@@ -55,7 +55,7 @@ class ProfileController extends GetxController{
         isLoading.value=false;
       }    
 
-        Future<String>uploadeFileToFirebase(String imagePath)async{
+        Future<String>uploadFileToFirebase(String imagePath)async{
             final path="file${imagePath}";
             final file=File(imagePath!);
           if (imagePath!="") {

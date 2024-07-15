@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:vschatapp/Controller/GroupController.dart';
 import 'package:vschatapp/Controller/chatController.dart';
 import 'package:vschatapp/Controller/imagePickerController.dart';
+import 'package:vschatapp/Model/GroupModel.dart';
 import 'package:vschatapp/Model/userModel.dart';
 import 'package:vschatapp/configur/images.dart';
 import 'package:vschatapp/widgets/imagePickerBottemSheet.dart';
 
-class MessageType extends StatelessWidget {
-  final UserModel userModel;
-  const MessageType({super.key, required this.userModel});
+class GroupMessageType extends StatelessWidget {
+  final GroupModel groupModel;
+  const GroupMessageType({super.key, required this.groupModel});
 
   @override
   Widget build(BuildContext context) {
     ChatController chatController=Get.put(ChatController());
     TextEditingController messageController=TextEditingController();
     ImagePickerController imagePickerController=Get.put(ImagePickerController());
+    GroupController groupController= Get.put(GroupController());
     RxString message="".obs;
     return Container(
           margin:const EdgeInsets.all(10),
@@ -60,12 +63,9 @@ class MessageType extends StatelessWidget {
               Obx(() => message.value !="" || chatController.selectImagePath.value!=""
               ? InkWell(
                 onTap: () {
-                  if (messageController.text.isNotEmpty || chatController.selectImagePath.value.isNotEmpty) {
-                    chatController.sendMessage(
-                            userModel.id!, messageController.text, userModel);
-                    messageController.clear();
-                    message.value="";
-                  }
+                  groupController.sendGroupMessage(messageController.text, groupModel.id!, "");
+                  messageController.clear();
+                  message.value="";
                 },
                 child: chatController.isLoading.value 
                 ?const CircularProgressIndicator()

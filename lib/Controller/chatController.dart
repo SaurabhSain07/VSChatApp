@@ -62,7 +62,7 @@ class ChatController extends GetxController{
     RxString imageUrl="".obs;
     if (selectImagePath.isNotEmpty) {
       imageUrl.value =
-          await profileController.uploadeFileToFirebase(selectImagePath.value);
+          await profileController.uploadFileToFirebase(selectImagePath.value);
     }
     var newChat = ChatModel(
       id: chatId,

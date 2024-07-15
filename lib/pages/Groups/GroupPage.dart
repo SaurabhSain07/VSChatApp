@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vschatapp/Controller/GroupController.dart';
 import 'package:vschatapp/configur/images.dart';
+import 'package:vschatapp/pages/GroupChat/GroupChatPage.dart';
 import 'package:vschatapp/pages/homePage/widgets/chatTile.dart';
 
 class GroupPage extends StatelessWidget {
@@ -13,7 +14,9 @@ class GroupPage extends StatelessWidget {
     return Obx(() => ListView(
       children: groupController.groupList
           .map((group) => InkWell(
-          onTap: (){},
+          onTap: (){
+            Get.to(GroupChatPage(groupModel: group));
+          },
           child: ChatTile(
               name: group.name!,
               imageUrl: group.profileUrl == ""

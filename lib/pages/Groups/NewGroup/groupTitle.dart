@@ -23,24 +23,28 @@ class GroupTitle extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title:const Text("New Group")),
       floatingActionButton:
-      Obx(() => FloatingActionButton(
-        onPressed: () {
-          if (groupName.isEmpty) {   
-            Get.snackbar("Error", "Please Enter Group name");
-          } else {
-            groupController.createGroup(groupName.value, imagePath.value);
-          }
-        },
-        backgroundColor: groupName.isEmpty
-         ? Colors.grey
-         :Theme.of(context).colorScheme.primary,
-        child: groupController.isLoading.value
-            ? const CircularProgressIndicator()
-            : const Icon(
-                Icons.done,
-                color: Colors.white,
-              ),
-      ),),
+      Obx(
+        () => FloatingActionButton(
+          backgroundColor: groupName.isEmpty
+              ? Colors.grey
+              : Theme.of(context).colorScheme.primary,
+          onPressed: () {
+            if (groupName.isEmpty) {
+              Get.snackbar("Error", "Please enter group name");
+            } else {
+              groupController.createGroup(groupName.value, imagePath.value);
+            }
+          },
+          child: groupController.isLoading.value
+              ? const CircularProgressIndicator(
+                  color: Colors.white,
+                )
+              : Icon(
+                  Icons.done,
+                  color: Theme.of(context).colorScheme.onBackground,
+                ),
+        ),
+      ),
       
       body: Column(
         children: [
