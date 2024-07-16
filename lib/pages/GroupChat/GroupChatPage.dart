@@ -8,21 +8,18 @@ import 'package:vschatapp/Controller/GroupController.dart';
 import 'package:vschatapp/Controller/chatController.dart';
 import 'package:vschatapp/Controller/profileController.dart';
 import 'package:vschatapp/Model/GroupModel.dart';
-import 'package:vschatapp/Model/userModel.dart';
 import 'package:vschatapp/configur/images.dart';
 import 'package:vschatapp/pages/Chats/Widgets/ChatBubble.dart';
-import 'package:vschatapp/pages/Chats/Widgets/messageType.dart';
 import 'package:vschatapp/pages/GroupChat/groupTypeMessage.dart';
+import 'package:vschatapp/pages/GroupInfo/groupInfo.dart';
 import 'package:vschatapp/pages/UserProfile/Profile.dart';
 
 class GroupChatPage extends StatelessWidget {
   final GroupModel groupModel;
-
   const GroupChatPage({super.key, required this.groupModel,});
 
   @override
   Widget build(BuildContext context) {
-    ChatController chatController=Get.put(ChatController());
     GroupController groupController=Get.put(GroupController());
     ProfileController profileController=Get.put(ProfileController());
     return GestureDetector(
@@ -31,39 +28,34 @@ class GroupChatPage extends StatelessWidget {
         appBar: AppBar(
           leading: Padding(
             padding: const EdgeInsets.all(5),
-            child: InkWell(
-              onTap: () {
-              // Get.to(UserProfilePage(
-              //   userModel: groupModel,
-              // ));
-            },
-            child: Container(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(100),
-                  child: CachedNetworkImage(
-                    imageUrl: groupModel.profileUrl == ""
-                        ? AssetsImage.defaultProfileImage
-                        : groupModel.profileUrl!,
-                    fit: BoxFit.fill,
-                    placeholder: (context, url) => CircularProgressIndicator(),
-                    errorWidget: (context, url, error) => Icon(Icons.error),
-                  ),
-                ))),
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Container(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(100),
+                    child: CachedNetworkImage(
+                      imageUrl: groupModel.profileUrl == ""
+                          ? AssetsImage.defaultProfileImage
+                          : groupModel.profileUrl!,
+                      fit: BoxFit.fill,
+                      placeholder: (context, url) =>const CircularProgressIndicator(),
+                      errorWidget: (context, url, error) =>const Icon(Icons.error),
+                    ),
+                  )),
+            ),
           ),
           title: InkWell(
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
             onTap: () {
-              // Get.to(UserProfilePage(
-              //   userModel: groupModel,
-              // ));
+              Get.to(GroupInfo(groupModel: groupModel,));
             },
             child: Row(
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(groupModel.name ?? "User",
+                    Text(groupModel.name ?? "Group Name",
                      style: Theme.of(context).textTheme.bodyLarge,),
                      Text("Online", 
                      style: Theme.of(context).textTheme.labelMedium,
@@ -129,7 +121,7 @@ class GroupChatPage extends StatelessWidget {
                       }
                     },
                    ),
-                  Obx(() => (chatController.selectImagePath.value!="")? Positioned(
+                  Obx(() => (groupController.selectedImagePath.value!="")? Positioned(
                     bottom: 0,
                     left: 0,
                     right: 0,
@@ -140,7 +132,7 @@ class GroupChatPage extends StatelessWidget {
                           height: 500,
                           decoration: BoxDecoration(
                             image: DecorationImage(image: FileImage(
-                              File(chatController.selectImagePath.value)
+                              File(groupController.selectedImagePath.value)
                              ),
                              fit: BoxFit.fill
                             ),
@@ -151,9 +143,9 @@ class GroupChatPage extends StatelessWidget {
                           right: 0,
                                     child: IconButton(
                                         onPressed: () {
-                                          chatController.selectImagePath.value="";
+                                          groupController.selectedImagePath.value="";
                                         },
-                                        icon: Icon(Icons.close)))
+                                        icon:const Icon(Icons.close)))
                       ],
                     ),
                    ):Container())

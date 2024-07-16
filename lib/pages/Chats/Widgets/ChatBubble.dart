@@ -38,7 +38,7 @@ class ChatBubble extends StatelessWidget {
                 color: Theme.of(context).colorScheme.primaryContainer),
             child: imageUrl == "" 
             ? Text(message)
-            :Column(
+            : Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ClipRRect(

@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:vschatapp/Controller/GroupController.dart';
-import 'package:vschatapp/Controller/chatController.dart';
 import 'package:vschatapp/Controller/imagePickerController.dart';
 import 'package:vschatapp/Model/GroupModel.dart';
-import 'package:vschatapp/Model/userModel.dart';
 import 'package:vschatapp/configur/images.dart';
 import 'package:vschatapp/widgets/imagePickerBottemSheet.dart';
 
@@ -15,7 +13,6 @@ class GroupMessageType extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ChatController chatController=Get.put(ChatController());
     TextEditingController messageController=TextEditingController();
     ImagePickerController imagePickerController=Get.put(ImagePickerController());
     GroupController groupController= Get.put(GroupController());
@@ -47,27 +44,35 @@ class GroupMessageType extends StatelessWidget {
                 )
                 ),
               const SizedBox(width: 10,),
-              Obx(() => chatController.selectImagePath.value==""
+              Obx(() => groupController.selectedImagePath.value==""
               ?InkWell(
                 onTap: () {
-                  imagePickerBottemSheet(context, chatController, imagePickerController);
+                  imagePickerBottemSheet(
+                            context,
+                            groupController.selectedImagePath,
+                            imagePickerController);
                 },
                 child: SvgPicture.asset(AssetsImage.gallerySVG))
                 :InkWell(
                   onTap: (){
-                    chatController.selectImagePath.value="";
+                    groupController.selectedImagePath.value="";
                   },
                   child:const SizedBox(),
                 ),),
               const SizedBox(width: 10,),
-              Obx(() => message.value !="" || chatController.selectImagePath.value!=""
+              Obx(() => message.value != "" ||
+                    groupController.selectedImagePath.value != ""
               ? InkWell(
                 onTap: () {
-                  groupController.sendGroupMessage(messageController.text, groupModel.id!, "");
+                  groupController.sendGroupMessage(
+                  messageController.text, 
+                  groupModel.id!,
+                  "",  
+                  );
                   messageController.clear();
                   message.value="";
                 },
-                child: chatController.isLoading.value 
+                child: groupController.isLoading.value 
                 ?const CircularProgressIndicator()
                 :SvgPicture.asset(AssetsImage.sendSVG)
               )  

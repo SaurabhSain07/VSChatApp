@@ -4,24 +4,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:vschatapp/Controller/GroupController.dart';
+import 'package:vschatapp/Model/userModel.dart';
 import 'package:vschatapp/configur/Colors.dart';
 import 'package:vschatapp/configur/images.dart';
 
 import '../../../Controller/profileController.dart';
 
-class LoginUserInfo extends StatelessWidget {
+class GroupMembersInfo extends StatelessWidget {
   final String profileImage;
   final String userName;
   final String userEmail;
-  const LoginUserInfo({
+  final String groupId;
+  const GroupMembersInfo({
     super.key,
     required this.profileImage,
     required this.userName,
-    required this.userEmail});
+    required this.userEmail, required this.groupId});
 
   @override
   Widget build(BuildContext context) {
     ProfileController profileController=Get.put(ProfileController());
+    GroupController groupController=Get.put(GroupController());
     return Padding(
             padding: const EdgeInsets.all(15),
             child: Container(
@@ -119,27 +123,40 @@ class LoginUserInfo extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Container(
-                      height: 50,
-                        decoration: BoxDecoration(
-                            color: dBackgroundColor,
-                            borderRadius: BorderRadius.circular(15)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(15),
-                          child: Wrap(
-                            children: [
-                              SvgPicture.asset(
-                                AssetsImage.appIconSVG,
-                                width: 25,
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              const Text(
-                                "Chat",
-                                style: TextStyle(color: dPrimaryColor),
-                              )
-                            ],
+                      InkWell(
+                        onTap: () {
+                          var newMember =UserModel(
+                            email: "ss@gmail.com",
+                            name: "Saurabh Sain",
+                            profileImage: "",
+                            role: "admin"
+                          );
+
+                          groupController.addMemberToGroup(groupId, newMember);
+                        },
+                        child: Container(
+                        height: 50,
+                          decoration: BoxDecoration(
+                              color: dBackgroundColor,
+                              borderRadius: BorderRadius.circular(15)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(15),
+                            child: Wrap(
+                              children: [
+                                SvgPicture.asset(
+                                  AssetsImage.groupAddUserSVG,
+                                  color: Colors.white,
+                                  width: 25,
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                const Text(
+                                  "add",
+                                  style: TextStyle(color: Colors.white),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),

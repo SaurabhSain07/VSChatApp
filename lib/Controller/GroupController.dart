@@ -36,7 +36,8 @@ class GroupController extends GetxController{
   Future <void> createGroup(String groupName, String imagePath)async{
     isLoading.value=true;
     String groupId=uuid.v6(); 
-    groupMembers.add(UserModel(
+    groupMembers.add(
+      UserModel(
       id: auth.currentUser!.uid,
       name: auth.currentUser!.displayName,
       profileImage: profileController.currentUser.value.profileImage,
@@ -91,11 +92,11 @@ class GroupController extends GetxController{
   }
   
   Future<void> sendGroupMessage(
-      String message, String groupId, String imagePath) async {
+    String message, String groupId, String imagePath) async {
     isLoading.value = true;
     var chatId = uuid.v6();
     String imageUrl =
-        await profileController.uploadFileToFirebase(selectedImagePath.value);
+       await profileController.uploadFileToFirebase(selectedImagePath.value);
     var newChat = ChatModel(
       id: chatId,
       message: message,
@@ -130,5 +131,14 @@ class GroupController extends GetxController{
               )
               .toList(),
         );
+  }
+
+  Future<void> addMemberToGroup(String groupId, UserModel user)async{
+    isLoading.value=true;
+    await db.collection("groups").doc(groupId).update({
+      "members": FieldValue.arrayUnion([user.toJson()])
+    });
+    getGroups();
+    isLoading.value=false;
   }
 }

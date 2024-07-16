@@ -12,6 +12,7 @@ class AssetsImage{
   static const appIconSVG="$iconsPath/app_icon.svg";
   static const connectSVG="$iconsPath/connect.svg";
   static const plugSVG="$iconsPath/plug.svg";
+  static const groupAddUserSVG="$iconsPath/groupAddUser.svg";
   
   static const gallerySVG="$iconsPath/gallery.svg";
   static const micSVG="$iconsPath/mic.svg";

@@ -14,7 +14,7 @@ class ChatController extends GetxController{
   final db= FirebaseFirestore.instance;
   RxBool isLoading=false.obs;
   var uuid = Uuid();
-  RxString selectImagePath="".obs;
+ RxString selectedImagePath = "".obs;
   ProfileController profileController=Get.put(ProfileController());
   ContactController contactController=Get.put(ContactController());
 
@@ -60,9 +60,9 @@ class ChatController extends GetxController{
     UserModel receiver = getReciver(profileController.currentUser.value, targetUser);
     
     RxString imageUrl="".obs;
-    if (selectImagePath.isNotEmpty) {
+    if (selectedImagePath.isNotEmpty) {
       imageUrl.value =
-          await profileController.uploadFileToFirebase(selectImagePath.value);
+          await profileController.uploadFileToFirebase(selectedImagePath.value);
     }
     var newChat = ChatModel(
       id: chatId,
@@ -83,7 +83,7 @@ class ChatController extends GetxController{
       timestamp: DateTime.now().toString(),
       unReadMessNo: 0,
     );
-    selectImagePath.value="";
+    selectedImagePath.value="";
     try {
       await db
           .collection("chats")

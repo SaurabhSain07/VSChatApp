@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:uuid/uuid.dart';
 import 'package:vschatapp/Controller/GroupController.dart';
 import 'package:vschatapp/Controller/imagePickerController.dart';
 import 'package:vschatapp/configur/images.dart';
