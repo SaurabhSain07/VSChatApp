@@ -2,7 +2,7 @@ class AssetsImage{
   static const iconsPath="assets/Icons";
   static const imagesPath="assets/Images";
 
-  static const defaultProfileImage="https://firebasestorage.googleapis.com/v0/b/vschatapp-bf162.appspot.com/o/boy.png?alt=media&token=e344cd6d-2ab5-460c-9592-d800a8655ba8";
+  static const defaultProfileImage="https://firebasestorage.googleapis.com/v0/b/vschatapp-1faea.appspot.com/o/boy.png?alt=media&token=82dae3cf-e336-4136-ace6-68865681364e";
 
   // png Images only
   static const boy="$imagesPath/boy.png";

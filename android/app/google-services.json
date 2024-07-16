@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "968992937532",
-    "project_id": "vschatapp-bf162",
-    "storage_bucket": "vschatapp-bf162.appspot.com"
+    "project_number": "894617630262",
+    "project_id": "vschatapp-1faea",
+    "storage_bucket": "vschatapp-1faea.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:968992937532:android:aca32ddba23ddf12e91539",
+        "mobilesdk_app_id": "1:894617630262:android:44001e660586bbc2caca97",
         "android_client_info": {
           "package_name": "com.example.vschatapp"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyB0JtuwYROenWYZOB2Y4gLrlLY-zgaa4rc"
+          "current_key": "AIzaSyAi9AAoAvzQBwIxpUODWALEUc5MSbFTEtc"
         }
       ],
       "services": {

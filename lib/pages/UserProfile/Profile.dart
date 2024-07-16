@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:vschatapp/Controller/authController.dart';
 import 'package:vschatapp/Model/userModel.dart';
-import 'package:vschatapp/configur/Colors.dart';
 import 'package:vschatapp/configur/images.dart';
 import 'package:vschatapp/pages/UserProfile/Widgets/login_user_info.dart';
 import '../../Controller/profileController.dart';

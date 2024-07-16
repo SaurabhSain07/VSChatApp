@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:vschatapp/Controller/chatController.dart';
@@ -113,7 +112,7 @@ class ChatPage extends StatelessWidget {
                             return ChatBubble(
                               message: snapshot.data![index].message!,
                               imageUrl: snapshot.data![index].imageUrl ?? "",
-                              isComming: snapshot.data![index].receiverId ==
+                              isComming: snapshot.data![index].receiverId !=
                                   profileController.currentUser.value.id,
                               status: "read",
                               time: formattedTime,

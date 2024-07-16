@@ -9,6 +9,7 @@ import 'package:vschatapp/pages/splace_screen/splace_sareen.dart';
 import 'firebase_options.dart';
 
 
+
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(

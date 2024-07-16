@@ -50,19 +50,19 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyB0JtuwYROenWYZOB2Y4gLrlLY-zgaa4rc',
-    appId: '1:968992937532:android:aca32ddba23ddf12e91539',
-    messagingSenderId: '968992937532',
-    projectId: 'vschatapp-bf162',
-    storageBucket: 'vschatapp-bf162.appspot.com',
+    apiKey: 'AIzaSyAi9AAoAvzQBwIxpUODWALEUc5MSbFTEtc',
+    appId: '1:894617630262:android:44001e660586bbc2caca97',
+    messagingSenderId: '894617630262',
+    projectId: 'vschatapp-1faea',
+    storageBucket: 'vschatapp-1faea.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCorRULNvCuLmuW8Br4PRMmd6mVH7I5AcM',
-    appId: '1:968992937532:ios:319450fb2a069cc4e91539',
-    messagingSenderId: '968992937532',
-    projectId: 'vschatapp-bf162',
-    storageBucket: 'vschatapp-bf162.appspot.com',
+    apiKey: 'AIzaSyDkg0WewX5xRimOg6aomn4f-BKaAt9Hpvc',
+    appId: '1:894617630262:ios:94abb63cc6a7f648caca97',
+    messagingSenderId: '894617630262',
+    projectId: 'vschatapp-1faea',
+    storageBucket: 'vschatapp-1faea.appspot.com',
     iosBundleId: 'com.example.vschatapp',
   );
 }
