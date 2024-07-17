@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:vschatapp/Controller/contactController.dart';
+import 'package:vschatapp/Controller/statusController.dart';
 import 'package:vschatapp/configur/images.dart';
 import 'package:vschatapp/configur/string.dart';
 import 'package:vschatapp/pages/Groups/GroupPage.dart';
 import 'package:vschatapp/pages/homePage/widgets/chatList.dart';
 import 'package:vschatapp/pages/homePage/widgets/myTapBar.dart';
-
-import '../../Controller/profileController.dart';
 import '../Profile/profilePage.dart';
 
 class HomePage extends StatefulWidget {
@@ -22,8 +21,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     TabController tabController = TabController(length: 3, vsync: this);
-    ProfileController profileController=Get.put(ProfileController());
     ContactController contactController =Get.put(ContactController());
+    StatusController statusController=Get.put(StatusController());
     return Scaffold(
       appBar: AppBar(
         leading: Padding(

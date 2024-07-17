@@ -117,4 +117,11 @@ class ChatController extends GetxController{
             .map((docs) => ChatModel.fromJson(docs.data()))
             .toList());
   }
+  
+  // for get online status
+  Stream<UserModel> getStatus(String uid){
+    return db.collection("users").doc(uid).snapshots().map((event) {
+      return UserModel.fromJson(event.data()!);
+    });
+  }
 }
