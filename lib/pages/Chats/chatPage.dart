@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:vschatapp/Controller/callController.dart';
 import 'package:vschatapp/Controller/chatController.dart';
 import 'package:vschatapp/Controller/profileController.dart';
 import 'package:vschatapp/Model/userModel.dart';
@@ -20,6 +21,7 @@ class ChatPage extends StatelessWidget {
   Widget build(BuildContext context) {
     ChatController chatController=Get.put(ChatController());
     ProfileController profileController=Get.put(ProfileController());
+    CallController callController=Get.put(CallController());
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -80,7 +82,10 @@ class ChatPage extends StatelessWidget {
           ),
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                callController.CallAction(
+                    userModel, profileController.currentUser.value);
+              },
               icon: const Icon(Icons.call_sharp),
             ),
             IconButton(
@@ -89,7 +94,7 @@ class ChatPage extends StatelessWidget {
         ),
     
         body: Padding(
-          padding: EdgeInsets.only(bottom: 10, top: 10, left: 10, right: 10),
+          padding:const EdgeInsets.only(bottom: 10, top: 10, left: 10, right: 10),
           child: Column(
             children: [
               Expanded(
@@ -158,7 +163,7 @@ class ChatPage extends StatelessWidget {
                                         onPressed: () {
                                           chatController.selectedImagePath.value="";
                                         },
-                                        icon: Icon(Icons.close)))
+                                        icon:const Icon(Icons.close)))
                       ],
                     ),
                    ):Container())

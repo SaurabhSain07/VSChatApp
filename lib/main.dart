@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:vschatapp/Controller/callController.dart';
 import 'package:vschatapp/configur/Theme.dart';
 import 'package:vschatapp/pages/Profile/profilePage.dart';
 import 'package:vschatapp/pages/page_path.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    CallController callController=Get.put(CallController());
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       builder: FToastBuilder(),
