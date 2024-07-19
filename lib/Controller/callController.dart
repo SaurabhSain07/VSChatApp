@@ -13,9 +13,10 @@ class CallController extends GetxController{
 
   void onInti(){
     super.onInit();
-    getCallsNotification().listen((snapshort) { 
-      if (snapshort.docs.isNotEmpty) {
-        Get.snackbar("Calling", "Calling");
+    getCallsNotification().listen((List<CallModel> calllist) { 
+      if (calllist.isNotEmpty) {
+        var callData=calllist[0];
+        Get.snackbar(callData.callerName!, "Incoming Call");
       }
     });
   }
@@ -42,16 +43,44 @@ class CallController extends GetxController{
           .collection("call")
           .doc(id)
           .set(newCall.toJson());
+      await db
+          .collection("users")
+          .doc(auth.currentUser!.uid)
+          .collection("calls")
+          .doc(id)
+          .set(newCall.toJson());
+      await db
+          .collection("users")
+          .doc(reciver.id)
+          .collection("calls")
+          .doc(id)
+          .set(newCall.toJson());
+      Future.delayed(Duration(minutes: 1),(){
+        endCall(newCall);
+      });
     } catch (e) {
       print(e);
     }
   }
   
-  Stream<QuerySnapshot> getCallsNotification() {
+  Stream<List<CallModel>> getCallsNotification() {
     return db
         .collection("notification")
         .doc(auth.currentUser!.uid)
         .collection("call")
-        .snapshots();
+        .snapshots().map((snapshot) => snapshot.docs.map((doc) => CallModel.fromJson(doc.data())).toList());
+  }
+
+  Future<void> endCall(CallModel call)async{
+    try {
+      await db
+          .collection("notification")
+          .doc(call.receiverUid)
+          .collection("call")
+          .doc(call.id)
+          .delete();
+    } catch (e) {
+      print(e);
+    }
   }
 }

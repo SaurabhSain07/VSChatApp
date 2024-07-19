@@ -12,6 +12,7 @@ import 'package:vschatapp/configur/images.dart';
 import 'package:vschatapp/pages/Chats/Widgets/ChatBubble.dart';
 import 'package:vschatapp/pages/Chats/Widgets/messageType.dart';
 import 'package:vschatapp/pages/UserProfile/Profile.dart';
+import 'package:vschatapp/pages/callPages/audioCallPage.dart';
 
 class ChatPage extends StatelessWidget {
   final UserModel userModel;
@@ -83,6 +84,7 @@ class ChatPage extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () {
+                Get.to(AudioCallPage(target: userModel));
                 callController.CallAction(
                     userModel, profileController.currentUser.value);
               },
